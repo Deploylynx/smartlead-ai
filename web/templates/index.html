@@ -45,25 +45,6 @@
             margin-left: 10px;
         }
 
-        .card {
-            background: rgba(255,255,255,0.08);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 10px;
-            border-left: 3px solid gold;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid gray;
-        }
-
         .export {
             margin-top: 20px;
             display: inline-block;
@@ -72,6 +53,19 @@
             color: black;
             text-decoration: none;
             font-weight: bold;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border-left: 3px solid gold;
+        }
+
+        .label {
+            font-weight: bold;
+            color: gold;
         }
     </style>
 </head>
@@ -90,26 +84,39 @@
         <button type="submit">Find Leads</button>
     </form>
 
-    {% if leads %}
+    {% if leads and leads|length > 0 %}
 
-    <a class="export" href="/export">⬇ Export CSV</a>
+        <a class="export" href="/export">⬇ Export CSV</a>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Company</th>
-            <th>Message</th>
-        </tr>
+        <h2 style="margin-top:20px;">Leads Found</h2>
 
         {% for lead in leads %}
-        <tr>
-            <td>{{ lead.name }}</td>
-            <td>{{ lead.company }}</td>
-            <td>{{ lead.message }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="card">
 
+            <p><span class="label">Company:</span> {{ lead.company }}</p>
+
+            <p>
+                <span class="label">Website:</span>
+                <a href="{{ lead.website }}" target="_blank" style="color:lightblue;">
+                    {{ lead.website }}
+                </a>
+            </p>
+
+            <p><span class="label">Email:</span> {{ lead.email }}</p>
+
+            <p><span class="label">Contact Page:</span> {{ lead.contact_page }}</p>
+
+            <p><span class="label">Name:</span> {{ lead.name }}</p>
+
+            <p><span class="label">Keyword:</span> {{ lead.keyword }}</p>
+
+            <p><span class="label">Message:</span> {{ lead.message }}</p>
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+        <p style="margin-top:20px;">No leads found yet.</p>
     {% endif %}
 
 </div>

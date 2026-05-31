@@ -1,21 +1,16 @@
-from transformers import pipeline
-
-# lightweight free AI model
-generator = pipeline("text-generation", model="distilgpt2")
-
 def generate_message(lead):
-    prompt = f"""
-Write a professional client outreach message.
+    company = lead.get("company", "your company")
+    need = lead.get("need", "business")
 
-Client Name: {lead['name']}
-Company: {lead['company']}
-Requirement: {lead['need']}
+    return f"""
+Hi {company},
 
-Message:
+I noticed that {company} may be interested in improving their {need} processes.
+
+We help companies automate deployments, cloud infrastructure, DevOps workflows and platform engineering.
+
+Would you be open to a quick discussion?
+
+Best regards,
+DeployLynx
 """
-
-    result = generator(prompt, max_length=120, num_return_sequences=1)
-
-    text = result[0]["generated_text"]
-
-    return text
