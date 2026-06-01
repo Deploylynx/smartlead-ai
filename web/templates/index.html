@@ -93,6 +93,10 @@
         {% for lead in leads %}
         <div class="card">
 
+            <p>
+<span class="label">Lead Score:</span>
+{{ lead.score }}
+</p>
             <p><span class="label">Company:</span> {{ lead.company }}</p>
 
             <p>
